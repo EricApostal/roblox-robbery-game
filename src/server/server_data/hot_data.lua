@@ -15,8 +15,7 @@ function session_data:init_player(player_id)
     -- this is where we would retrieve from a DB
     
     local cold_player_data = cold_data:get_data("players", player_id)
-    print("Data actually returned: ")
-    print(cold_player_data)
+
     if cold_player_data ~= nil then
         session_data[player_id] = cold_player_data
     else

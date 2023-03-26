@@ -8,7 +8,7 @@ local DataStoreService = game:GetService("DataStoreService")
 
 -- so we can dynamically route do a different database
 local databases = {}
-databases['players'] = 'players_testdb_2'
+databases['players'] = 'players_testdb_3'
 
 
 function cold_data:save_data(raw_database, key, data)

@@ -3,8 +3,7 @@
 ]]
 
 local data = {
-    coins = 50,
-    pets = {}
+    money = 1000
 }
 
 return data
