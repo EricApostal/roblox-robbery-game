@@ -3,6 +3,7 @@ local SS = game:GetService("ServerScriptService"):WaitForChild("Server")
 
 local knit = require(RS:WaitForChild("modules").Knit)
 local data = require(SS.server_data.hot_data)
+local bank = require(SS.game_handler.robberies.bank)
 
 local game_service = knit.CreateService { Name = "game_service", Client = {} }
 
@@ -23,14 +24,15 @@ function game_service.Client:get_money(player)
 end
 
 function game_service:start_robbery(player, location)
-    
+    bank:start_robbery(player)
 end
 
 knit.Start():catch(warn)
 
 local net = {}
 
-function net:start_robbery(player, location) 
+function net:start_robbery(player, location)
+    
     game_service:start_robbery(player, location)
 end
 
