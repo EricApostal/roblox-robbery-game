@@ -1,6 +1,8 @@
 --[[
     Handles bank robbery
 
+    URGENT TODO: re-write vault detection. Using ontouch is a stupid idea and doesn't really work
+
     todo: handle if they are in-building. You could add a robber attribute, such as
     ```
     robbers[player].in_vault
@@ -41,10 +43,18 @@ function bank:start_robbery(player)
     print(player.name .. " has started a robbery!")
 
     while bank.active_robbery do
-        for player_id, _ in robbers do
+        for _, player_id in robbers do
 
             local new_bag_count = data:get_data(player_id)["crime"]["bag_amount"] + 100
+
+
+
             data:set_attribute(player_id, "crime", {is_robbing = true, location = "bank", bag_amount = new_bag_count })
+
+            print("player data: ")
+            print(data:get_data(player_id))
+
+            
             -- print(player_id .. " recieved $100! New data:")
             -- print(data:get_data(player_id))
         end
@@ -67,58 +77,48 @@ local function contains_key(table, key)
     return false
 end
 
---[[
-     shitty way to see who is robbing the bank
-     yeah, it's super laggy
-     no, I'm not fixing it
-]]
 
-local function vault_touch_coro(player_id)
-    -- async function that constantly monitors to see if a player is still touching the vault
-    local coro_running = true
+vault.Touched:Connect(function() end) -- Just for a TouchInterest to occur on a CanCollide false part
 
+function player_in_vault(player)
+    -- https://devforum.roblox.com/t/how-do-i-accurately-check-if-a-player-is-in-a-certain-area/369733/2
+    local touching = vault:GetTouchingParts()
+	for i=1,#touching do
+		if touching[i] == player.Character.HumanoidRootPart then
+			return true
+		end
+	end
+	return false
+end
+
+function bank.check_vault_players()
+    print("checking vault players")
     coroutine.wrap(function() 
-        while coro_running do
-        -- if the check difference is greater than 1 second
-            if (os.time() - robbers[player_id]) > 1 then
-                print("player has timed out of bank")
-                -- if so, remove the player and stop the coro
-                table.remove(robbers, player_id)
-                data:set_attribute(player_id, "crime", {is_robbing = false, location = nil, bag_amount = 0 })
-                coro_running = false
-            else 
-                print("player has not timed out of bank yet")
+        while true do
+            for _, player in players:GetPlayers() do
+
+                -- add them as a new robber
+                if player_in_vault(player) and (not contains_key(robbers, player.UserId)) then
+                    print(player.Name .. " joined the robbery!")
+                    print(robbers)
+
+                    data:set_attribute(player.UserId, "crime", {is_robbing = true, location = "bank", bag_amount = 0 or data:get_data(player.UserId)["crime"]["bag_amount"] })
+                    robbers[player.UserId] = player.UserId -- goofy but it's the best way to do it with .remove
+                end
+
+                -- handle if the player is already in the array
+                if (not player_in_vault(player)) and (contains_key(robbers, player.UserId)) then
+                    print("player is not in the vault! Removing.")
+                    robbers[player.UserId] = nil
+                    print(robbers)
+                end
+
             end
             wait()
         end
     end)()
-
 end
 
-vault.Touched:Connect(function(itemTouchingPart)
-    -- https://scriptinghelpers.org/questions/88063/how-do-i-check-if-a-player-is-touching-a-part
-    if(itemTouchingPart.Parent and game.Players:FindFirstChild(itemTouchingPart.Parent.Name)) and bank.active_robbery then
-
-        local player = game.Players:FindFirstChild(itemTouchingPart.Parent.Name)
-        local player_name = player.Name
-        local player_id = player.UserId
-
-        print("player do be touching it tho")
-
-        if not ( contains_key(robbers, player_id) ) then
-            robbers[player_id] = os.time()
-            -- if robber isn't already in the db
-
-            print(player_name .. " joined the robbery!")
-
-            -- start thread to check if the player leaves the vault
-            vault_touch_coro(player_id)
-            
-            -- so it's easy to access said data elsewhere
-            data:set_attribute(player_id, "crime", {is_robbing = true, location = "bank", bag_amount = 0 or data:get_data(player_id)["crime"]["bag_amount"] })
-        end
-        robbers[player_id] = os.time()
-    end
-end)
+bank.check_vault_players()
 
 return bank

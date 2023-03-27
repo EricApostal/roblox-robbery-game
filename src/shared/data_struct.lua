@@ -8,7 +8,7 @@ local data = {
     -- not sure if I like this, it will require a manual reset upon joining as it will save (or negate it?)
     crime = {
         is_robbing = false,
-        location = nil,
+        location = "",
         bag_amount = 0
     }
 }
