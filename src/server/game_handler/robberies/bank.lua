@@ -30,11 +30,6 @@ local function tick_money()
     end)
 end
 
-function bank.get_robbers()
-    -- Returns everyone touching the vault block
-    
-    
-end
 
 function bank:start_robbery(player)
     bank.active_robbery = true
