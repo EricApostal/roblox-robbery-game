@@ -12,7 +12,8 @@ local function onPlayerAdded(player)
 end
 
 local function onPlayerLeaving(player)
-    print("Player is leaving!")
+    print(player.Name .. " has left with data:")
+    print(data:get_data(player.UserId))
     data:player_leaving(player.UserId)
 end
 
