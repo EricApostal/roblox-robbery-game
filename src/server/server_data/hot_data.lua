@@ -18,7 +18,7 @@ function session_data:init_player(player_id)
 
     if cold_player_data ~= nil then
         session_data[player_id] = cold_player_data
-        session_data[player_id]["crime"] = {data_header["crime"]} -- I hate this so much but it's the best I got atm
+        session_data[player_id]["crime"] = data_header["crime"]-- I hate this so much but it's the best I got atm
     else
         -- We would need to have an init function with the expected default data
         print("no data in DB (nil), setting to default values")

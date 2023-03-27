@@ -23,14 +23,6 @@ bank.active_robbery = false
 local vault = game.Workspace:WaitForChild("robberies").bank.vault
 local robbers = {}
 
-local function tick_money()
-    -- coroutine that runs every second during bank robbery to increment money
-    local money_increment = coroutine.create(function() 
-        
-    end)
-end
-
-
 function bank:start_robbery(player)
     bank.active_robbery = true
     print(player.name .. " has started a robbery!")
@@ -75,7 +67,6 @@ function player_in_vault(player)
 end
 
 function bank.check_vault_players()
-    print("checking vault players")
     coroutine.wrap(function() 
         while true do
             for _, player in players:GetPlayers() do
@@ -90,12 +81,9 @@ function bank.check_vault_players()
 
                 -- handle if the player is already in the array
                 if (not player_in_vault(player)) and (contains_key(robbers, player.UserId)) then
-                    print("player is not in the vault! Removing.")
                     robbers[player.UserId] = nil
                     data:add_attribute(player.UserId, "money", data:get_data(player.UserId)["crime"]["bag_amount"])
                     data:set_crime(player.UserId, data_struct["crime"])
-                    print("reset crime data: ")
-                    print(data:get_data(player.UserId))
                 end
             end
             wait()
