@@ -60,6 +60,7 @@ function session_data:set_attribute(player_id, attribute, value)
     return true
 end
 
+
 function session_data:add_attribute(player_id, attribute, value)
     yield_until_valid(player_id) 
 
@@ -72,6 +73,13 @@ function session_data:player_leaving(player_id)
 
     print("saving player data (leaving)")
     cold_data:save_data("players", player_id, session_data:get_data(player_id))
+end
+
+function session_data:set_crime(player_id, value)
+    yield_until_valid(player_id) 
+
+    session_data[player_id]["crime"] = value
+    return true
 end
 
 return session_data

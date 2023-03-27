@@ -17,8 +17,10 @@ local bank = {}
 -- modules
 local players = game:GetService("Players")
 local SS = game:GetService("ServerScriptService"):WaitForChild("Server")
+local RS = game:GetService("ReplicatedStorage")
 
 local data = require(SS.server_data.hot_data)
+local data_struct = require(RS.Common.data_struct)
 
 -- defines
 bank.active_robbery = false
@@ -44,19 +46,9 @@ function bank:start_robbery(player)
 
     while bank.active_robbery do
         for _, player_id in robbers do
-
             local new_bag_count = data:get_data(player_id)["crime"]["bag_amount"] + 100
-
-
-
             data:set_attribute(player_id, "crime", {is_robbing = true, location = "bank", bag_amount = new_bag_count })
-
-            print("player data: ")
-            print(data:get_data(player_id))
-
-            
-            -- print(player_id .. " recieved $100! New data:")
-            -- print(data:get_data(player_id))
+            print(new_bag_count)
         end
         wait(1)
     end
@@ -100,19 +92,20 @@ function bank.check_vault_players()
                 -- add them as a new robber
                 if player_in_vault(player) and (not contains_key(robbers, player.UserId)) then
                     print(player.Name .. " joined the robbery!")
-                    print(robbers)
 
                     data:set_attribute(player.UserId, "crime", {is_robbing = true, location = "bank", bag_amount = 0 or data:get_data(player.UserId)["crime"]["bag_amount"] })
-                    robbers[player.UserId] = player.UserId -- goofy but it's the best way to do it with .remove
+                    robbers[player.UserId] = player.UserId -- don't ask :D
                 end
 
                 -- handle if the player is already in the array
                 if (not player_in_vault(player)) and (contains_key(robbers, player.UserId)) then
                     print("player is not in the vault! Removing.")
                     robbers[player.UserId] = nil
-                    print(robbers)
+                    data:add_attribute(player.UserId, "money", data:get_data(player.UserId)["crime"]["bag_amount"])
+                    data:set_crime(player.UserId, data_struct["crime"])
+                    print("reset crime data: ")
+                    print(data:get_data(player.UserId))
                 end
-
             end
             wait()
         end
