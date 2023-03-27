@@ -17,5 +17,4 @@ function net.get_money()
     return game_service:get_money()
 end
 
-
 return net
