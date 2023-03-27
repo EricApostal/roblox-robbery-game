@@ -1,14 +1,10 @@
 --[[
     Handles bank robbery
 
-    URGENT TODO: re-write vault detection. Using ontouch is a stupid idea and doesn't really work
-
     todo: handle if they are in-building. You could add a robber attribute, such as
     ```
     robbers[player].in_vault
     ```
-
-    Or even better, add it to the hot data player array
 
 ]]
 
