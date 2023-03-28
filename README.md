@@ -18,3 +18,27 @@ For the UI, this project uses [Fusion](https://elttob.uk/Fusion/0.2/) instead of
 The data structure is highly-opinionated and (maybe?) unique as I didn't look at other projects beforehand. All session data is located within the hot_data module, which represents all live and actively used data within RAM. This data is accessed from the server-side by using a module directly, while it is accessed from the client side by using knit to call that same module.
 
 When the player joins it pulls from the cold_data module, which is a minimal module that represents all data stored between sessions, utilizing Roblox's datastorage by default. Of course, if you would like it wouldn't be incredibly difficult to use pocketbase or anything of sorts, if you're into that sorta thing.
+
+# Timeline
+## Robbery mechanics
+- **[**🟨**]** Bank Roberry
+- **[**🟥**]** Train
+- **[**🟥**]** Plane
+- **[**🟥**]** Money Laundering
+## UI Library
+- **[**🟥**]** Work out out UI design layout
+- **[**🟥**]** Build re-usable components
+- **[**🟥**]** Inventory
+## Mechanics
+- **[**🟥**]** Train (actual movement mechanics)
+- **[**🟥**]** Weapon System
+## Map
+- **[**🟥**]** Basic Map Overview
+- **[**🟥**]** Basic Bank Robbery
+- **[**🟥**]** Complete Road Network
+- **[**🟥**]** Complete Train Track
+## Car Mechanics
+- **[**🟥**]** Basic car foundation
+- **[**🟥**]** Street racing
+- **[**🟥**]** Autonomous car driving
+- **[**🟥**]** Car Stealing
