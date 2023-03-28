@@ -12,9 +12,16 @@ local knit = require(RS:WaitForChild("modules").Knit)
 knit.Start({ServicePromises = false}):catch(warn)
 local game_service = knit.GetService("game_service")
 
+
+
 -- Wrappers
 function net.get_money()
     return game_service:get_money()
 end
+
+-- Listeners (RemoteSignal)
+game_service.RobberyStarted:Connect(function(player)
+    print("REE IT WORKED")
+end)
 
 return net

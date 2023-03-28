@@ -24,18 +24,24 @@ local vault = game.Workspace:WaitForChild("robberies").bank.vault
 local robbers = {}
 
 function bank:start_robbery(player)
+    --[[
+        Starts the logic behind the bank robbery
+    ]]
+
     bank.active_robbery = true
     print(player.name .. " has started a robbery!")
 
-    while bank.active_robbery do
-        for _, player_id in robbers do
-            local new_bag_count = data:get_data(player_id)["crime"]["bag_amount"] + 100
-            data:set_attribute(player_id, "crime", {is_robbing = true, location = "bank", bag_amount = new_bag_count })
-            print(new_bag_count)
+    -- This is so we don't hault whatever thread calls "bank:start_robbery"
+    coroutine.wrap(function() 
+        while bank.active_robbery do
+            for _, player_id in robbers do
+                local new_bag_count = data:get_data(player_id)["crime"]["bag_amount"] + 100
+                data:set_attribute(player_id, "crime", {is_robbing = true, location = "bank", bag_amount = new_bag_count })
+                print(new_bag_count)
+            end
+            wait(1)
         end
-        wait(1)
-    end
-
+    end)
 end
 
 function bank:stop_robbery()

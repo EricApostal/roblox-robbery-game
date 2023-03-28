@@ -19,7 +19,13 @@ The data structure is highly-opinionated and (maybe?) unique as I didn't look at
 
 When the player joins it pulls from the cold_data module, which is a minimal module that represents all data stored between sessions, utilizing Roblox's datastorage by default. Of course, if you would like it wouldn't be incredibly difficult to use pocketbase or anything of sorts, if you're into that sorta thing.
 
-# Timeline
+# Objectives
+Stuff I actually want to get done.
+Key:
+🟥 = Not started
+🟨 = In progress
+🟩 = Completed
+
 ## Robbery mechanics
 - **[**🟨**]** Bank Roberry
 - **[**🟥**]** Train
@@ -42,5 +48,3 @@ When the player joins it pulls from the cold_data module, which is a minimal mod
 - **[**🟥**]** Street racing
 - **[**🟥**]** Autonomous car driving
 - **[**🟥**]** Car Stealing
-
-This is a text edit message from Eye

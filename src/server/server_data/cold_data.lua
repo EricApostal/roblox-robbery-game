@@ -8,6 +8,9 @@ local DataStoreService = game:GetService("DataStoreService")
 
 -- so we can dynamically route do a different database
 local databases = {}
+--[[
+    if you ever make a major change to the player data array, ALWAYS make a new database!
+]]
 databases['players'] = 'players_testdb_5'
 
 

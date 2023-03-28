@@ -11,7 +11,7 @@ local Value, Observer, Computed, ForKeys, ForValues, ForPairs, new, Children, On
 
 local comps = {}
 
-function comps.close_button()
+function comps.close_button(parent_ui)
     return new "TextButton" {
         Position = UDim2.fromScale(0.05, 0.05),
         AnchorPoint = Vector2.new(.5, .5),
@@ -23,15 +23,45 @@ function comps.close_button()
 
         [OnEvent "Activated"] = function()
             print("The button was clicked!")
+            parent_ui.Visible = false
+            print()
         end,
 
         [OnChange "Name"] = function(newName)
-            print("The button was renamed to:", newName)
+            
+            print("The asdad button was renamed to:", newName)
         end,
 
         [Children] = new "UICorner" {
             CornerRadius = UDim.new(0, 8)
         }
+    }
+end
+
+function comps.main_button(button_text, button_position, button_size, parent_ui)
+    return new "TextButton" {
+        Position =  button_position,--UDim2.fromScale(0.5, 0.5),
+        AnchorPoint = Vector2.new(.5, .5),
+        Size = button_size,--UDim2.fromOffset(170, 50),
+        BackgroundColor3 = Color3.new(0.890196, 0.270588, 0.270588),
+        Text = button_text,
+        TextColor = BrickColor.White(),
+        TextSize = 24,
+
+        [OnEvent "Activated"] = function()
+            print("Player accepted EULA!")
+            -- This was bing
+
+            -- Fusion.Animate(parent_ui, TweenInfo.new(1), {
+            --     Position = UDim2.fromScale(0.25, -0.25),
+            --     BackgroundTransparency = 1,
+            --     Visible = false
+            -- })
+        end,
+
+        
+
+        
     }
 end
 
