@@ -14,6 +14,7 @@ local bank = {}
 local players = game:GetService("Players")
 local SS = game:GetService("ServerScriptService"):WaitForChild("Server")
 local RS = game:GetService("ReplicatedStorage")
+local net = require(SS.networking.server_networking)
 
 local data = require(SS.server_data.hot_data)
 local data_struct = require(RS.Common.data_struct)
@@ -23,10 +24,14 @@ bank.active_robbery = false
 local vault = game.Workspace:WaitForChild("robberies").bank.vault
 local robbers = {}
 
+
+
 function bank:start_robbery(player)
     --[[
         Starts the logic behind the bank robbery
     ]]
+
+    net:start_robbery(player, "bank")
 
     bank.active_robbery = true
     print(player.name .. " has started a robbery!")
@@ -79,6 +84,7 @@ function bank.check_vault_players()
 
                 -- add them as a new robber
                 if player_in_vault(player) and (not contains_key(robbers, player.UserId)) then
+                    net:join_robbery(player, "bank")
                     print(player.Name .. " joined the robbery!")
 
                     data:set_attribute(player.UserId, "crime", {is_robbing = true, location = "bank", bag_amount = 0 or data:get_data(player.UserId)["crime"]["bag_amount"] })

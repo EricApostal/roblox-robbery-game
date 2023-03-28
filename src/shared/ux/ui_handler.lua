@@ -12,8 +12,6 @@ function ui:spawn_bag_ui()
         Spawns the money bag UI
     ]]
 
-    print("spawnign bag UI")
-
     local bag_ui = new "Frame" {
         Position = UDim2.fromScale(1, 1),
         AnchorPoint = Vector2.new(1, 1),
@@ -27,7 +25,6 @@ function ui:spawn_bag_ui()
         }
     }
     bag_ui.Parent = ScreenGui
-    print("spawned bag UI")
 end
 
 return ui

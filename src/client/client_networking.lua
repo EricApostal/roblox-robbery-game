@@ -21,9 +21,13 @@ function net.get_money()
 end
 
 -- Listeners (RemoteSignal)
-game_service.RobberyStarted:Connect(function(player)
-    print("REE IT WORKED")
+game_service.PlayerJoinedRobbery:Connect(function(player)
+    print("Joined robbery")
     ui_handler:spawn_bag_ui()
+end)
+
+game_service.StartRobbery:Connect(function(player)
+    print("Started Robbery")
 end)
 
 return net

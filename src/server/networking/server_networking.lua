@@ -4,12 +4,12 @@ local SS = game:GetService("ServerScriptService"):WaitForChild("Server")
 local knit = require(RS:WaitForChild("modules").Knit)
 
 local data = require(SS.server_data.hot_data)
-local bank = require(SS.game_handler.robberies.bank)
 
 local game_service = knit.CreateService { 
     Name = "game_service", 
     Client = {
-        RobberyStarted = knit.CreateSignal(), 
+        StartRobbery = knit.CreateSignal(), 
+        PlayerJoinedRobbery = knit.CreateSignal(), 
     },
 }
 
@@ -30,21 +30,16 @@ function game_service.Client:get_money(player)
 end
 
 
-function game_service:start_robbery(player, location)
-    --[[
-        Starts a robbery. Player = initiator. Location = building (bank, train, etc)
-    ]]
-
-    bank:start_robbery(player)
-end
-
 knit.Start():catch(warn)
 
 local net = {}
 
 function net:start_robbery(player, location)
-    game_service:start_robbery(player, location)
-    game_service.Client.RobberyStarted:Fire(player)
+    game_service.Client.StartRobbery:Fire(player, location)
+end
+
+function net:join_robbery(player, location)
+    game_service.Client.PlayerJoinedRobbery:Fire(player, location)
 end
 
 return net
