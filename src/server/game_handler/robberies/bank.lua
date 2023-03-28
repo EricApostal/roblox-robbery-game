@@ -81,9 +81,12 @@ function bank.check_vault_players()
 
                 -- handle if the player is already in the array
                 if (not player_in_vault(player)) and (contains_key(robbers, player.UserId)) then
+                    print(player.name .. " has left the Bank robbery!") 
+                    print("Money Gained: " .. data:get_data(player.UserId)["crime"]["bag_amount"])
                     robbers[player.UserId] = nil
                     data:add_attribute(player.UserId, "money", data:get_data(player.UserId)["crime"]["bag_amount"])
                     data:set_crime(player.UserId, data_struct["crime"])
+                    print("Total Money: " .. data:get_data(player.UserId)["money"] )
                 end
             end
             wait()
