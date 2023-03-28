@@ -1,4 +1,4 @@
-# Jailbreak-esque robbery game base
+# Jailbreak-Esque Robbery game base
 
 ## About
 My attempt at making a game similar to jailbreak in functionality. My hope is that I can provide an easy-to-use foundation for robbery style games (and hopefully make this a full game in itself).
