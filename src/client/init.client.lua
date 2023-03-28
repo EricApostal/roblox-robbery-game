@@ -2,6 +2,3 @@ local net = require( game:GetService("StarterPlayer"):WaitForChild("StarterPlaye
 local RS = game:GetService("ReplicatedStorage")
 
 local Fusion = require(RS.modules.Fusion)
-
-
-print("test hello world")
