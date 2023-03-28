@@ -26,9 +26,9 @@ When the player joins it pulls from the cold_data module, which is a minimal mod
 - **[**🟥**]** Plane
 - **[**🟥**]** Money Laundering
 ## UI Library
-- **[**🟥**]** Work out out UI design layout
-- **[**🟥**]** Build re-usable components
-- **[**🟥**]** Inventory
+- **[**🟨**]** Work out out UI design layout
+- **[**🟨**]** Build re-usable components
+- **[**🟥**]** Inventory Gui
 ## Mechanics
 - **[**🟥**]** Train (actual movement mechanics)
 - **[**🟥**]** Weapon System
