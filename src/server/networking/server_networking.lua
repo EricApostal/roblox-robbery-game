@@ -20,7 +20,7 @@ function game_service:init()
     print("coin service initialized")
 end
 
-function game_service.Client:add_money(player, amount)
+function game_service:add_money(player, amount)
     data:add_attribute(player.UserId, "money", amount)
     print(amount + " dollars were added to " + player.UserId)
 end
@@ -28,7 +28,6 @@ end
 function game_service.Client:get_money(player)
     return data:get_data(player.UserId)["money"]
 end
-
 
 knit.Start():catch(warn)
 

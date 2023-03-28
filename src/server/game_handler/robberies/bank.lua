@@ -24,8 +24,6 @@ bank.active_robbery = false
 local vault = game.Workspace:WaitForChild("robberies").bank.vault
 local robbers = {}
 
-
-
 function bank:start_robbery(player)
     --[[
         Starts the logic behind the bank robbery
@@ -46,7 +44,7 @@ function bank:start_robbery(player)
             end
             wait(1)
         end
-    end)
+    end)()
 end
 
 function bank:stop_robbery()

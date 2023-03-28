@@ -13,8 +13,6 @@ local ui_handler = require( RS:WaitForChild("Common").ux.ui_handler )
 knit.Start({ServicePromises = false}):catch(warn)
 local game_service = knit.GetService("game_service")
 
-
-
 -- Wrappers
 function net.get_money()
     return game_service:get_money()
