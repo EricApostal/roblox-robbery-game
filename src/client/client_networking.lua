@@ -7,6 +7,7 @@ local net = {}
 -- Imports
 local RS = game:GetService("ReplicatedStorage")
 local knit = require(RS:WaitForChild("modules").Knit)
+local ui_handler = require( RS:WaitForChild("Common").ux.ui_handler )
 
 -- Constructer
 knit.Start({ServicePromises = false}):catch(warn)
@@ -22,6 +23,7 @@ end
 -- Listeners (RemoteSignal)
 game_service.RobberyStarted:Connect(function(player)
     print("REE IT WORKED")
+    ui_handler:spawn_bag_ui()
 end)
 
 return net
