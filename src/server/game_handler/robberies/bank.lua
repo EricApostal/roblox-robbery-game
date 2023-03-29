@@ -68,7 +68,8 @@ function player_in_vault(player)
     -- https://devforum.roblox.com/t/how-do-i-accurately-check-if-a-player-is-in-a-certain-area/369733/2
     local touching = vault:GetTouchingParts()
 	for i=1,#touching do
-		if touching[i] == player.Character.HumanoidRootPart then
+        local character = player.Character or player.CharacterAdded:Wait()
+		if touching[i] == character.HumanoidRootPart then
 			return true
 		end
 	end
