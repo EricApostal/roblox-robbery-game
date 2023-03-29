@@ -10,6 +10,8 @@ local game_service = knit.CreateService {
     Client = {
         StartRobbery = knit.CreateSignal(), 
         PlayerJoinedRobbery = knit.CreateSignal(), 
+        CrimeBagUpdate = knit.CreateSignal(),
+        LeaveRobbery = knit.CreateSignal(),
     },
 }
 
@@ -29,6 +31,10 @@ function game_service.Client:get_money(player)
     return data:get_data(player.UserId)["money"]
 end
 
+function game_service.Client:get_crime_bag_amount(player)
+    return data:get_data(player.UserId)["crime"].bag_amount
+end
+
 knit.Start():catch(warn)
 
 local net = {}
@@ -39,6 +45,14 @@ end
 
 function net:join_robbery(player, location)
     game_service.Client.PlayerJoinedRobbery:Fire(player, location)
+end
+
+function net:update_crime_bag(player, new_value)
+    game_service.Client.CrimeBagUpdate:Fire(player, new_value)
+end
+
+function net:leave_robbery(player)
+    game_service.Client.LeaveRobbery:Fire(player)
 end
 
 return net

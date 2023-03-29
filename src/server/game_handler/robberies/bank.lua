@@ -40,7 +40,7 @@ function bank:start_robbery(player)
             for _, player_id in robbers do
                 local new_bag_count = data:get_data(player_id)["crime"]["bag_amount"] + 100
                 data:set_attribute(player_id, "crime", {is_robbing = true, location = "bank", bag_amount = new_bag_count })
-                print(new_bag_count)
+                net:update_crime_bag(player, new_bag_count)
             end
             wait(1)
         end
@@ -97,6 +97,7 @@ function bank.check_vault_players()
                     data:add_attribute(player.UserId, "money", data:get_data(player.UserId)["crime"]["bag_amount"])
                     data:set_crime(player.UserId, data_struct["crime"])
                     print("Total Money: " .. data:get_data(player.UserId)["money"] )
+                    net:leave_robbery(player)
                 end
             end
             wait()
