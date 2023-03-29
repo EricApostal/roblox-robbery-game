@@ -15,5 +15,5 @@ local store_prompt = game.Workspace:WaitForChild("robberies").bank.start_block.r
 
 -- rather important bit of code-- responsible for starting the robbery. It's a remote so you could really trigger it however you want.
 store_prompt.Triggered:Connect(function(player)
-    net:start_robbery(player, "bank")
+    bank:start_robbery(player)
 end)

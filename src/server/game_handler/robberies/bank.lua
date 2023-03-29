@@ -14,6 +14,7 @@ local bank = {}
 local players = game:GetService("Players")
 local SS = game:GetService("ServerScriptService"):WaitForChild("Server")
 local RS = game:GetService("ReplicatedStorage")
+local net = require(SS.networking.server_networking)
 
 local data = require(SS.server_data.hot_data)
 local data_struct = require(RS.Common.data_struct)
@@ -24,18 +25,26 @@ local vault = game.Workspace:WaitForChild("robberies").bank.vault
 local robbers = {}
 
 function bank:start_robbery(player)
+    --[[
+        Starts the logic behind the bank robbery
+    ]]
+
+    net:start_robbery(player, "bank")
+
     bank.active_robbery = true
     print(player.name .. " has started a robbery!")
 
-    while bank.active_robbery do
-        for _, player_id in robbers do
-            local new_bag_count = data:get_data(player_id)["crime"]["bag_amount"] + 100
-            data:set_attribute(player_id, "crime", {is_robbing = true, location = "bank", bag_amount = new_bag_count })
-            print(new_bag_count)
+    -- This is so we don't hault whatever thread calls "bank:start_robbery"
+    coroutine.wrap(function() 
+        while bank.active_robbery do
+            for _, player_id in robbers do
+                local new_bag_count = data:get_data(player_id)["crime"]["bag_amount"] + 100
+                data:set_attribute(player_id, "crime", {is_robbing = true, location = "bank", bag_amount = new_bag_count })
+                net:update_crime_bag(player, new_bag_count)
+            end
+            wait(1)
         end
-        wait(1)
-    end
-
+    end)()
 end
 
 function bank:stop_robbery()
@@ -59,7 +68,8 @@ function player_in_vault(player)
     -- https://devforum.roblox.com/t/how-do-i-accurately-check-if-a-player-is-in-a-certain-area/369733/2
     local touching = vault:GetTouchingParts()
 	for i=1,#touching do
-		if touching[i] == player.Character.HumanoidRootPart then
+        local character = player.Character or player.CharacterAdded:Wait()
+		if touching[i] == character.HumanoidRootPart then
 			return true
 		end
 	end
@@ -73,6 +83,7 @@ function bank.check_vault_players()
 
                 -- add them as a new robber
                 if player_in_vault(player) and (not contains_key(robbers, player.UserId)) then
+                    net:join_robbery(player, "bank")
                     print(player.Name .. " joined the robbery!")
 
                     data:set_attribute(player.UserId, "crime", {is_robbing = true, location = "bank", bag_amount = 0 or data:get_data(player.UserId)["crime"]["bag_amount"] })
@@ -87,6 +98,7 @@ function bank.check_vault_players()
                     data:add_attribute(player.UserId, "money", data:get_data(player.UserId)["crime"]["bag_amount"])
                     data:set_crime(player.UserId, data_struct["crime"])
                     print("Total Money: " .. data:get_data(player.UserId)["money"] )
+                    net:leave_robbery(player)
                 end
             end
             wait()
