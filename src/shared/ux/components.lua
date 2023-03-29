@@ -23,6 +23,7 @@ function comps.close_button()
 
         [OnEvent "Activated"] = function()
             print("The button was clicked!")
+            
         end,
 
         [OnChange "Name"] = function(newName)

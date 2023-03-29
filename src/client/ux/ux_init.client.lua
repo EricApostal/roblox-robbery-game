@@ -20,7 +20,7 @@ local close_button = components.close_button()
     Feel free to do whatever you want with it
 ]]
 local main_ui = new "Frame" {
-    Position = UDim2.fromScale(.5, .5),
+    Position = UDim2.fromScale(.9, .9),
     AnchorPoint = Vector2.new(.5, .5),
     Size = UDim2.fromOffset(200, 200),
     BackgroundColor3 = Color3.new(1.000000, 1.000000, 1.000000),
