@@ -55,4 +55,4 @@ Key:
 - **[**🟥**]** Car Stealing
 ## General Mechanics
 - **[**🟩**]** Leaderboard
-- **[**🟨**]** Custom Movement (partial sprint implemintation)
+- **[**🟩**]** Custom Movement (partial sprint implemintation)
