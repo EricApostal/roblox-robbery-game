@@ -75,4 +75,41 @@ function ui:bag_ui(bag_value)
     return bag_ui
 end
 
+
+-- TOP RIGHT HUD
+
+function ui:client_hud(cash_amount)
+    --[[
+        Spawns the HUD
+        I know this is very copy pasta
+    ]]
+
+    local cashamount = new "TextLabel" {
+        TextColor = BrickColor.Black(),
+        TextSize = 32,
+        AnchorPoint = Vector2.new(0.5, 0.5),
+        Position = UDim2.fromScale(0.5, 0.5),
+        Size = UDim2.fromScale(.9, .6),
+        BorderSizePixel = 2,
+        TextXAlignment = 2,
+        BackgroundTransparency = 1,
+        Text = cash_amount
+    }
+    local client_hud = new "Frame" {
+        Position = UDim2.fromScale(0.9, 0.1),
+        AnchorPoint = Vector2.new(1, 1),
+        Size = UDim2.fromOffset(300, 75),
+        BackgroundColor3 = Color3.new(1.000000, 1.000000, 1.000000),
+
+        [Children] = {
+            new "UICorner" {
+                CornerRadius = UDim.new(0, 4),
+            },
+            cashamount
+        }
+    }
+    return client_hud
+end
+
+
 return ui

@@ -50,19 +50,24 @@ function comps.main_button(button_text, button_position, button_size, parent_ui)
 
         [OnEvent "Activated"] = function()
             print("Player accepted EULA!")
-            -- This was bing
+            
 
-            -- Fusion.Animate(parent_ui, TweenInfo.new(1), {
-            --     Position = UDim2.fromScale(0.25, -0.25),
-            --     BackgroundTransparency = 1,
-            --     Visible = false
-            -- })
-        end,
+            Fusion.Animate(parent_ui, TweenInfo.new(1), {
+                Position = UDim2.fromScale(0.25, -0.25),
+                BackgroundTransparency = 1,
+                Visible = false
+            })
+        
+        end
 
         
 
         
     }
+
+
+
+    
 end
 
 return comps
