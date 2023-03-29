@@ -1,4 +1,3 @@
-local Players = game:GetService("Players")
 local SS = game:GetService("ServerScriptService"):WaitForChild("Server")
 
 local data = require(SS.server_data.hot_data)
