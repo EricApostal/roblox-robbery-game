@@ -54,5 +54,5 @@ Key:
 - **[**🟥**]** Autonomous car driving
 - **[**🟥**]** Car Stealing
 ## General Mechanics
-- **[**🟥**]** Leaderboard (either custom or default implementation)
+- **[**🟩**]** Leaderboard
 - **[**🟥**]** Custom Movement (ex: shift to sprint)
