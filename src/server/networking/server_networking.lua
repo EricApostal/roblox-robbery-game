@@ -12,6 +12,7 @@ local game_service = knit.CreateService {
         PlayerJoinedRobbery = knit.CreateSignal(), 
         CrimeBagUpdate = knit.CreateSignal(),
         LeaveRobbery = knit.CreateSignal(),
+        ShowUI = knit.CreateSignal()
     },
 }
 
@@ -53,6 +54,10 @@ end
 
 function net:leave_robbery(player)
     game_service.Client.LeaveRobbery:Fire(player)
+end
+
+function net:show_ui(player, ui_name)
+    game_service.Client.ShowUI:Fire(player, ui_name)
 end
 
 return net
