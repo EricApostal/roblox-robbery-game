@@ -41,7 +41,7 @@ Key:
 - **[**🟨**]** Build re-usable components
 - **[**🟥**]** Inventory Gui
 ## Mechanics
-- **[**🟥**]** Train (actual movement mechanics)
+- **[**🟨**]** Train (actual movement mechanics)
 - **[**🟥**]** Weapon System
 ## Map
 - **[**🟥**]** Basic Map Overview

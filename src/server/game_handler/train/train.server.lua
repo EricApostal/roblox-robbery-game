@@ -2,7 +2,6 @@
     File for controlling train movements
 ]]
 
-local TweenService = game:GetService("TweenService")
 local train = require(script.Parent.train_movement)
 local nodes = game.Workspace:WaitForChild("train").train_nodes
 
