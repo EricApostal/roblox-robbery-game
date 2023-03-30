@@ -29,8 +29,6 @@ end
 make_positions()
 
 local nodelist = {}
-print("node children: ")
-print(nodes:GetChildren())
 for k,v in nodes:GetChildren() do
 	table.insert(nodelist, v)
 end
