@@ -13,7 +13,11 @@ local data = {
         is_robbing = false,
         location = "",
         bag_amount = 0
-    }
+    },
+
+    inventory = {}
+
+
 }
 
 return data

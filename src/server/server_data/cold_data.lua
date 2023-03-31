@@ -11,7 +11,7 @@ local databases = {}
 --[[
     if you ever make a major change to the player data array, ALWAYS make a new database!
 ]]
-databases['players'] = 'players_testdb_6'
+databases['players'] = 'players_testdb_7'
 
 
 function cold_data:save_data(raw_database, key, data)
