@@ -5,18 +5,16 @@ local part = game.Workspace:WaitForChild("train").train.PrimaryPart
 local hitbox = game.Workspace:WaitForChild("train").train.player_hitbox
 
 --[[
-Movement
+    Movement
 ]]
+
 local speed = 50
-
-
 
 function train:move_to_position(pos)
     local goal = {}
     local _cf = CFrame.new(part.Position, pos)
     local rads = Vector3.new(_cf:ToEulerAnglesXYZ())
 
-    -- local Orientation = Vector3.new(math.deg(rads.X), math.deg(rads.Y), math.deg(rads.Z))    
     local Position = pos
 
     goal.CFrame = CFrame.new(Position) * CFrame.Angles(rads.X, rads.Y, rads.Z)
@@ -44,4 +42,3 @@ function train:move_to_nodes(nodes)
 end
 
 return train
-

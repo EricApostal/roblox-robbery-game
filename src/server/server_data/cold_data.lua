@@ -13,7 +13,6 @@ local databases = {}
 ]]
 databases['players'] = 'players_testdb_7'
 
-
 function cold_data:save_data(raw_database, key, data)
     local database = DataStoreService:GetDataStore(databases[raw_database])
     -- I would use strict type checking for no nulls here... this could cause problems

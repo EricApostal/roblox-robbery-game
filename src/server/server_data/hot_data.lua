@@ -71,7 +71,7 @@ end
 function session_data:player_leaving(player_id) 
     yield_until_valid(player_id) 
 
-    print("saving player data (leaving)")
+    print("Player is leaving, saving data...")
     cold_data:save_data("players", player_id, session_data:get_data(player_id))
 end
 

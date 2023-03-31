@@ -36,8 +36,8 @@ game_service.PlayerJoinedRobbery:Connect(function(player)
     bag_ui.Visible = true
 end)
 
-game_service.StartRobbery:Connect(function(player)
-    print("Started Robbery")
+game_service.StartRobbery:Connect(function(location)
+    print("Localplayer has started a " .. location .. " robbery!")
 end)
 
 game_service.CrimeBagUpdate:Connect(function(player)
@@ -45,10 +45,10 @@ game_service.CrimeBagUpdate:Connect(function(player)
 end)
 
 game_service.LeaveRobbery:Connect(function(player)
-    print("Leave robbery ")
+    print("player = ")
+    print(player)
+    print("Localplayer has left a robbery and is collecting money!")
     bag_ui.Visible = false
 end)
-
-
 
 return net
