@@ -31,7 +31,7 @@ local ray = Ray.new(RootPart.CFrame.p,Vector3.new(0,-50,0))
 
 local Hit, Position, Normal, Material = workspace:FindPartOnRay(ray,Ignore)
 
-if Hit and Hit.Name == "player_hitbox" then -- Change "RaftTop" to whatever the moving part's name is
+if Hit and Hit.Name == "train_head" then -- Change "RaftTop" to whatever the moving part's name is
 
 --------------------------------------------------------------- MOVE PLAYER TO NEW POSITON FROM OLD POSITION
 

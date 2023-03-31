@@ -33,6 +33,20 @@ for k,v in nodes:GetChildren() do
 	table.insert(nodelist, v)
 end
 
-while true do 
-	train:move_to_nodes(nodelist)
+
+
+function do_node_thing(cart)
+  coroutine.wrap(function()
+    while true do 
+      cart:move_to_nodes(nodelist)
+    end
+  end)()
 end
+
+local head_cart = train.new(1)
+local other_cart = train.new(2)
+do_node_thing(head_cart)
+wait(.25)
+do_node_thing(other_cart)
+
+
