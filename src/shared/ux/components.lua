@@ -58,16 +58,36 @@ function comps.main_button(button_text, button_position, button_size, parent_ui)
                 Visible = false
             })
         
-        end
-
-        
-
-        
+        end   
     }
+end
+-- Inventory Components
+-- ARRH I JUST WANNA SLEEP
+-- Im not very productive right now
+
+function comps.inventory_slot( button_position)
+    return new "ImageLabel" {
+        Position =  button_position,--UDim2.fromScale(0.5, 0.5),
+        AnchorPoint = Vector2.new(.5, .5),
+        Size = UDim2.fromOffset(50, 50),
+        Image = "rbxassetid://11176073563"
+         
+    }
+end
 
 
+function comps.inventory_selection_text( button_position)
+    return new "TextLabel" {
+        Position =  button_position,--UDim2.fromScale(0.5, 0.5),
+        AnchorPoint = Vector2.new(.5, .5),
+        Size = UDim2.fromOffset(0, 0),
+        BackgroundColor3 = Color3.new(0.890196, 0.270588, 0.270588),
+        Text = "Item: bOBUX",
+        TextColor = BrickColor.Blue(),
+        TextSize = 36,
 
-    
+
+    }
 end
 
 return comps
