@@ -1,7 +1,7 @@
 --[[
     Initialize Client side UI
 ]]
-print("Hello worlde")
+
 -- Modules
 local RS = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
@@ -33,8 +33,8 @@ local main_ui = new "Frame" {
     }
 }
 
-ui_handler:client_hud("Loaded HUD").Parent = ScreenGui
-ui_handler:client_hud("Loaded HUD").Visible = true
+-- ui_handler:client_hud("Loaded HUD").Parent = ScreenGui
+-- ui_handler:client_hud("Loaded HUD").Visible = true
 
 -- this can't be a normal child within main_ui because it references itself
 --local close_button = components.close_button(main_ui)

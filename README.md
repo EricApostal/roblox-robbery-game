@@ -20,7 +20,7 @@ The data structure is highly-opinionated and (maybe?) unique as I didn't look at
 When the player joins it pulls from the cold_data module, which is a minimal module that represents all data stored between sessions, utilizing Roblox's datastorage by default. Of course, if you would like it wouldn't be incredibly difficult to use pocketbase or anything of sorts, if you're into that sorta thing.
 
 ## Overall game idea (ideas I came up with on a whim, they usually suck)
-This is meant to be a robbery type game that starts players on the street, and they have to work to eventually get some sort of house / apartment. You are able to hack from your apartment, and some robberies could use it as a sort of "safe house" where you must go to cash in your earnings. You can go to your safe house to retrieve / customize cars. Much of the map is based around the city, and the map is intended to be quite large (with a high player cap). There will be a street-race system that allows players to invite others to a street race, which is another way to make money. 
+This is meant to be a robbery type game that starts players on the street, and they have to work to eventually get some sort of house / apartment. You are able to hack from your apartment, and some robberies could use it as a sort of "safe house" where you must go to cash in your earnings. You can go to your safe house to retrieve / customize cars. Much of the map is based around the city, and the map is intended to be quite large (with a high player cap). There will be a street-race system that allows players to invite others to a street race, which is another way to make money. When robbing banks you will need to complete a setup mission that 
 
 # Objectives
 Stuff I actually want to get done.
@@ -41,7 +41,7 @@ Key:
 - **[**🟨**]** Build re-usable components
 - **[**🟥**]** Inventory Gui
 ## Mechanics
-- **[**🟥**]** Train (actual movement mechanics)
+- **[**🟨**]** Train (actual movement mechanics)
 - **[**🟥**]** Weapon System
 ## Map
 - **[**🟥**]** Basic Map Overview
@@ -54,5 +54,5 @@ Key:
 - **[**🟥**]** Autonomous car driving
 - **[**🟥**]** Car Stealing
 ## General Mechanics
-- **[**🟥**]** Leaderboard (either custom or default implementation)
-- **[**🟥**]** Custom Movement (ex: shift to sprint)
+- **[**🟩**]** Leaderboard
+- **[**🟩**]** Custom Movement (partial sprint implementation)

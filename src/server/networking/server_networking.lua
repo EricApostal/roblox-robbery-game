@@ -8,14 +8,19 @@ local data = require(SS.server_data.hot_data)
 local game_service = knit.CreateService { 
     Name = "game_service", 
     Client = {
+        --[[
+            I may try to shave down on these.
+            It's okay, but binding a single signal w/ proper args sounds cleaner
+
+            Whatever either way is fine
+        ]]
         StartRobbery = knit.CreateSignal(), 
         PlayerJoinedRobbery = knit.CreateSignal(), 
         CrimeBagUpdate = knit.CreateSignal(),
         LeaveRobbery = knit.CreateSignal(),
+        ShowUI = knit.CreateSignal()
     },
 }
-
-print("server networking module running")
 
 -- init money service
 function game_service:init()
@@ -53,6 +58,10 @@ end
 
 function net:leave_robbery(player)
     game_service.Client.LeaveRobbery:Fire(player)
+end
+
+function net:show_ui(player, ui_name)
+    game_service.Client.ShowUI:Fire(player, ui_name)
 end
 
 return net
