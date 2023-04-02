@@ -12,7 +12,6 @@ local cart_distance = 9
 local train = {}
 train.__index = train
 
-
 function train:move_to_position(pos)
     
     local goal = {}
@@ -29,7 +28,6 @@ function train:move_to_position(pos)
     local tweenInfo = TweenInfo.new(dist/speed, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
     local tween = TweenService:Create(self.cart_object.PrimaryPart, tweenInfo, goal)
     
-
     if (dist/speed) and (dist/speed > 0) then
         tween:Play()
         wait(dist/speed)
@@ -47,7 +45,6 @@ function train:move_to_positions(positions)
     end
 end
 
-    
 function train:move_to_node(node, nodes)
     local num_nodes = #nodes
 
@@ -74,13 +71,10 @@ function train:move_to_nodes(nodes)
     end
 end
 
-
-
 function train.new(cart_number)
     local new_train = setmetatable({cart_number = cart_number, cart_object = train_model:Clone(), child_node = 1}, train)
     new_train.cart_object.Parent = game.Workspace -- Set the parent of the cloned train model to the workspace
     return new_train
 end
-
 
 return train

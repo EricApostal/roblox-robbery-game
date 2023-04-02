@@ -16,8 +16,8 @@ function make_positions()
     local offset = 200
 
     for angle = 0, 360, 1 do
-      local x = radius * math.cos(angle * math.pi / 180) + 200
-      local z = radius * math.sin(angle * math.pi / 180) + 200
+      local x = radius * math.cos(angle * math.pi / 180) + offset
+      local z = radius * math.sin(angle * math.pi / 180) + offset
       table.insert(positions, Vector3.new(x, 0, z))
     end
     for index, position in positions do
@@ -50,7 +50,6 @@ function do_node_thing(cart, parent)
   end)()
 end
 
-
 function spawn_train(length)
   local head = train.new()
   local carts = {}
@@ -65,14 +64,6 @@ function spawn_train(length)
   end
 end
 
--- local head_cart = train.new()
--- local other_cart = train.new()
--- local cart_3 = train.new()
-
--- do_node_thing(head_cart)
--- do_node_thing(other_cart, head_cart)
--- do_node_thing(cart_3, other_cart)
-
-spawn_train(20)
+spawn_train(10)
 
 print("done making carts")
