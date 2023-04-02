@@ -16,6 +16,8 @@ local LastTrainCFrame
 local Function
 local Function2
 
+local teleportThreshold = 10 -- Define the threshold distance to prevent teleporting
+
 Function = RunService.Heartbeat:Connect(function()
 
 --------------------------------------------------------------- CHECK PLATFORM BELOW
@@ -30,7 +32,7 @@ local ray = Ray.new(RootPart.CFrame.p, Vector3.new(0, -50, 0))
 
 local Hit, Position, Normal, Material = workspace:FindPartOnRayWithIgnoreList(ray, {Ignore}, false, true)
 
-if Hit and (Hit.Name == "train_head" or Hit.Name == "train_cart") then -- Change "train_head" and "train_cart" to the moving parts' names
+if Hit and Hit.Name == "train_player_hitbox" then -- Change "train_head" and "train_cart" to the moving parts' names
 
 --------------------------------------------------------------- MOVE PLAYER TO NEW POSITON FROM OLD POSITION
 
@@ -44,15 +46,19 @@ local Rel = TrainCF * LastTrainCFrame:inverse()
 
 LastTrainCFrame = Train.CFrame -- Updated here.
 
-RootPart.CFrame = Rel * RootPart.CFrame -- Set the player's CFrame
---print("set")
+local newCFrame = Rel * RootPart.CFrame -- Calculate the new player's CFrame
+
+if (newCFrame.p - RootPart.CFrame.p).Magnitude < teleportThreshold then -- Check if the new position is within the threshold
+    RootPart.CFrame = newCFrame -- Set the player's CFrame if it is within the threshold
+    --print("set")
+end
 
 else
 LastTrainCFrame = nil -- Clear the value when the player gets off.
 
 end
 
-Function2 = character.Humanoid.Died:Connect(function()
+Function2 = character:WaitForChild("Humanoid").Died:Connect(function()
     Function:Disconnect() -- Stop memory leaks
     Function2:Disconnect() -- Stop memory leaks
 end)
