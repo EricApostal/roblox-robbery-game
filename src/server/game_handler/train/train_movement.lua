@@ -6,8 +6,8 @@ local train_model = game.Workspace:WaitForChild("train").train
     Movement
 ]]
 
-local speed = 80
-local cart_distance = 9
+local speed = 75
+local cart_distance = 22
 
 local train = {}
 train.__index = train
