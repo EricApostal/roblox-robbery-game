@@ -16,7 +16,6 @@ local LastTrainCFrame
 local Function
 local Function2
 
-
 Function = RunService.Heartbeat:Connect(function()
 
 --------------------------------------------------------------- CHECK PLATFORM BELOW
@@ -27,17 +26,17 @@ local RootPart = character:WaitForChild("HumanoidRootPart")
 
 local Ignore = character
 
-local ray = Ray.new(RootPart.CFrame.p,Vector3.new(0,-50,0))
+local ray = Ray.new(RootPart.CFrame.p, Vector3.new(0, -50, 0))
 
-local Hit, Position, Normal, Material = workspace:FindPartOnRay(ray,Ignore)
+local Hit, Position, Normal, Material = workspace:FindPartOnRayWithIgnoreList(ray, {Ignore}, false, true)
 
-if Hit and Hit.Name == "train_head" then -- Change "RaftTop" to whatever the moving part's name is
+if Hit and (Hit.Name == "train_head" or Hit.Name == "train_cart") then -- Change "train_head" and "train_cart" to the moving parts' names
 
 --------------------------------------------------------------- MOVE PLAYER TO NEW POSITON FROM OLD POSITION
 
 local Train = Hit
 if LastTrainCFrame == nil then -- If no LastTrainCFrame exists, make one!
-	LastTrainCFrame = Train.CFrame -- This is updated later.
+    LastTrainCFrame = Train.CFrame -- This is updated later.
 end
 local TrainCF = Train.CFrame 
 
@@ -54,8 +53,8 @@ LastTrainCFrame = nil -- Clear the value when the player gets off.
 end
 
 Function2 = character.Humanoid.Died:Connect(function()
-	Function:Disconnect() -- Stop memory leaks
-	Function2:Disconnect() -- Stop memory leaks
+    Function:Disconnect() -- Stop memory leaks
+    Function2:Disconnect() -- Stop memory leaks
 end)
 
 end)

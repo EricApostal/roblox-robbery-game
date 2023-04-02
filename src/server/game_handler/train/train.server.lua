@@ -33,20 +33,44 @@ for k,v in nodes:GetChildren() do
 	table.insert(nodelist, v)
 end
 
-
-
-function do_node_thing(cart)
+function do_node_thing(cart, parent)
   coroutine.wrap(function()
-    while true do 
-      cart:move_to_nodes(nodelist)
+    if not parent then
+      while true do
+        cart:move_to_nodes(nodelist)
+      end
+        
+    else 
+      while true do
+        cart:move_to_node(parent.child_node, nodelist)
+      end
     end
   end)()
 end
 
-local head_cart = train.new(1)
-local other_cart = train.new(2)
+
+-- function spawn_train(length)
+--   local head = train.new()
+--   local carts = {}
+  
+--   table.insert(carts, head)
+--   do_node_thing(head)
+
+--   for i = 2, length do
+--     local cart = train.new()
+--     do_node_thing(cart, carts[i-1])
+--     carts[#carts + 1] = cart
+--   end
+-- end
+
+local head_cart = train.new()
+local other_cart = train.new()
+local cart_3 = train.new()
+
 do_node_thing(head_cart)
-wait(.25)
-do_node_thing(other_cart)
+do_node_thing(other_cart, head_cart)
+do_node_thing(cart_3, other_cart)
 
+-- spawn_train(4)
 
+print("done making carts")

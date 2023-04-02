@@ -15,7 +15,7 @@ local humanoid = character:WaitForChild("Humanoid")
 
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
 	if input.KeyCode == Enum.KeyCode.LeftShift then
-        humanoid.WalkSpeed = 30
+        humanoid.WalkSpeed = 32
 	end
 end)
 

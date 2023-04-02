@@ -1,4 +1,3 @@
-print("Hello worlde")
 -- Modules
 local RS = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
