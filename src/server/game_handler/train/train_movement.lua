@@ -6,15 +6,14 @@ local train_model = game.Workspace:WaitForChild("train").train
     Movement
 ]]
 
-local speed = 75
+local speed = 100
 
 local train = {}
 train.__index = train
 
 function train:move_to_position(pos, parent_cart)
     --[[
-        Moves cart to a given vector3
-
+        Moves cart to a given Vector3
         Parent cart is for any cart that has children
     ]]
     
@@ -22,30 +21,37 @@ function train:move_to_position(pos, parent_cart)
     local _cf = CFrame.new(self.cart_object.PrimaryPart.Position, pos)
     local rads = Vector3.new(_cf:ToEulerAnglesXYZ())
 
-    local Position = pos
-
-    goal.CFrame = CFrame.new(Position) * CFrame.Angles(rads.X, rads.Y, rads.Z)
+    goal.CFrame = CFrame.new(pos) * CFrame.Angles(rads.X, rads.Y, rads.Z)
 
     local p1 = self.cart_object.PrimaryPart.Position
     local p2 = pos
     local dist = math.abs(p1.X-p2.X) + math.abs(p1.Y-p2.Y) + math.abs(p1.Z-p2.Z)
 
     local wait_duration = dist/speed
-
     if parent_cart then
         wait_duration = parent_cart.child_speed
     end
-    
+
     local tweenInfo = TweenInfo.new(wait_duration, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
     local tween = TweenService:Create(self.cart_object.PrimaryPart, tweenInfo, goal)
-    
-    if (dist/speed) and (dist/speed > 0) then
-        if not parent_cart then
-            self.child_speed = dist/speed
-        end
+
+    --[[
+
+    When restarting the loop it needs the really small duration in order to actually move forward
+    I'm always setting the child speed to the parent speed, thus this would never work
+    What I need to do is either:
+
+    A) Figure out why there is a really small tween in the first place
+    B) Just tween the child cart manually if it's really small
+
+    ]]
+
+    if (wait_duration) and (wait_duration > 0.01) then
         tween:Play()
+        self.child_speed = wait_duration
         wait(wait_duration)
     else
+        print("0 node tween!")
         -- just in case the tween is 0, otherwise it will probably crash (usually only happens if I mess something else up)
         wait()
     end
@@ -55,6 +61,14 @@ function train:move_to_positions(positions)
     for k, v in ipairs(positions) do
         self:move_to_position(v)
     end
+end
+
+function train:get_rear_position()
+    return self.cart_object.rear_hitch.Position
+end
+
+function train:get_front_position()
+    return self.cart_object.front_hitch.Position
 end
 
 function train:move_to_nodes(nodes, parent_cart)
