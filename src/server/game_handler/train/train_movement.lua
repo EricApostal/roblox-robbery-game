@@ -7,6 +7,7 @@ local train_model = game.Workspace:WaitForChild("train").train
 ]]
 
 local speed = 100
+local cart_dist = 10
 
 local train = {}
 train.__index = train
@@ -28,8 +29,18 @@ function train:move_to_position(pos, parent_cart)
     local dist = math.abs(p1.X-p2.X) + math.abs(p1.Y-p2.Y) + math.abs(p1.Z-p2.Z)
 
     local wait_duration = dist/speed
+
     if parent_cart then
-        wait_duration = parent_cart.child_speed
+        local modifier = 1
+        local magnitude = math.round((self:front_hitch().Position - parent_cart:rear_hitch().Position).Magnitude)
+        
+        if magnitude > cart_dist then
+            modifier = 0.9
+        elseif magnitude < cart_dist then
+            modifier = 1.1
+        end
+
+        wait_duration = (parent_cart.child_speed) * modifier
     end
 
     local tweenInfo = TweenInfo.new(wait_duration, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
@@ -63,12 +74,12 @@ function train:move_to_positions(positions)
     end
 end
 
-function train:get_rear_position()
-    return self.cart_object.rear_hitch.Position
+function train:rear_hitch()
+    return self.cart_object.rear_hitch
 end
 
-function train:get_front_position()
-    return self.cart_object.front_hitch.Position
+function train:front_hitch()
+    return self.cart_object.front_hitch
 end
 
 function train:move_to_nodes(nodes, parent_cart)
@@ -77,8 +88,16 @@ function train:move_to_nodes(nodes, parent_cart)
     end
 end
 
+function train:set_anchor(bool)
+    self.cart_object.base.Anchored = bool
+end
+
 function train.new(cart_number)
-    local new_train = setmetatable({cart_number = cart_number, cart_object = train_model:Clone(), child_speed = 0}, train)
+    local new_train = setmetatable({cart_number = cart_number, 
+    cart_object = train_model:Clone(), 
+    child_speed = 0,
+    }, train)
+
     new_train.cart_object.Parent = game.Workspace -- Set the parent of the cloned train model to the workspace
     return new_train
 end

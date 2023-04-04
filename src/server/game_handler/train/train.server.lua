@@ -48,16 +48,11 @@ function do_node_thing(cart, parent)
     else 
       while true do
         cart:move_to_nodes(nodelist, parent)
-        
-        -- print("cart =")
-        -- print(cart)
-        -- print("parent =")
-        -- print(parent)
-        -- local magnitude = math.abs((cart:get_front_position() - parent:get_rear_position()).Magnitude)
-        -- print("magnitude = ")
-        -- print(magnitude)
-
+        local magnitude = math.abs((cart:front_hitch().Position - parent:rear_hitch().Position).Magnitude)
+        print("magnitude = ")
+        print(magnitude)
       end
+
     end
   end)()
 end
@@ -65,13 +60,24 @@ end
 function spawn_train(length)
   local head = train.new()
   local carts = {}
-  
+
   table.insert(carts, head)
   do_node_thing(head)
 
   for i = 2, length do
-    wait(.8)
     local cart = train.new()
+    local parent = carts[i-1]
+    local RodConstraintInstance = Instance.new("RodConstraint")
+    RodConstraintInstance.Attachment0 = Instance.new("Attachment", cart:front_hitch())
+    RodConstraintInstance.Attachment1 = Instance.new("Attachment", parent:rear_hitch())
+    RodConstraintInstance.Length = 5
+    RodConstraintInstance.Enabled = true
+    RodConstraintInstance.LimitsEnabled = true
+    RodConstraintInstance.Visible = true
+    RodConstraintInstance.Parent = game.Workspace
+
+    wait(2)
+
     do_node_thing(cart, carts[i-1])
     carts[#carts + 1] = cart
   end
@@ -89,11 +95,3 @@ end
 wait(5)
 
 spawn_train(10)
-
--- local head = train.new()
--- do_node_thing(head)
-
--- wait(.75)
-
--- local cart_2 = train.new()
--- do_node_thing(cart_2, head)
