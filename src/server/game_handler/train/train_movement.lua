@@ -7,12 +7,16 @@ local train_model = game.Workspace:WaitForChild("train").train
 ]]
 
 local speed = 75
-local cart_distance = 22
 
 local train = {}
 train.__index = train
 
-function train:move_to_position(pos)
+function train:move_to_position(pos, parent_cart)
+    --[[
+        Moves cart to a given vector3
+
+        Parent cart is for any cart that has children
+    ]]
     
     local goal = {}
     local _cf = CFrame.new(self.cart_object.PrimaryPart.Position, pos)
@@ -25,16 +29,24 @@ function train:move_to_position(pos)
     local p1 = self.cart_object.PrimaryPart.Position
     local p2 = pos
     local dist = math.abs(p1.X-p2.X) + math.abs(p1.Y-p2.Y) + math.abs(p1.Z-p2.Z)
-    local tweenInfo = TweenInfo.new(dist/speed, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+
+    local wait_duration = dist/speed
+
+    if parent_cart then
+        wait_duration = parent_cart.child_speed
+    end
+    
+    local tweenInfo = TweenInfo.new(wait_duration, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
     local tween = TweenService:Create(self.cart_object.PrimaryPart, tweenInfo, goal)
     
     if (dist/speed) and (dist/speed > 0) then
+        if not parent_cart then
+            self.child_speed = dist/speed
+        end
         tween:Play()
-        wait(dist/speed)
+        wait(wait_duration)
     else
-        -- print("uh oh, bad tween wait: ")
-        -- print("dist = " .. dist)
-        -- print("speed = " .. speed)
+        -- just in case the tween is 0, otherwise it will probably crash (usually only happens if I mess something else up)
         wait()
     end
 end
@@ -45,34 +57,14 @@ function train:move_to_positions(positions)
     end
 end
 
-function train:move_to_node(node, nodes)
-    local num_nodes = #nodes
-
-    local child_index = node - cart_distance
-    if child_index <= 0 then
-        child_index = child_index + num_nodes
-    end
-
-    self.child_node = child_index
-    self:move_to_position(nodes[node].Position)
-end
-
-function train:move_to_nodes(nodes)
-    local num_nodes = #nodes
-
+function train:move_to_nodes(nodes, parent_cart)
     for k, v in ipairs(nodes) do
-        local child_index = k - cart_distance
-        if child_index <= 0 then
-            child_index = child_index + num_nodes
-        end
-
-        self.child_node = child_index
-        self:move_to_position(v.Position)
+        self:move_to_position(v.Position, parent_cart)
     end
 end
 
 function train.new(cart_number)
-    local new_train = setmetatable({cart_number = cart_number, cart_object = train_model:Clone(), child_node = 1}, train)
+    local new_train = setmetatable({cart_number = cart_number, cart_object = train_model:Clone(), child_speed = 0}, train)
     new_train.cart_object.Parent = game.Workspace -- Set the parent of the cloned train model to the workspace
     return new_train
 end
