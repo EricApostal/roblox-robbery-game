@@ -63,14 +63,16 @@ function spawn_train(length)
   for i = 2, length do
     local cart = train.new()
     local parent = carts[i-1]
-    -- local RodConstraintInstance = Instance.new("RodConstraint")
-    -- RodConstraintInstance.Attachment0 = Instance.new("Attachment", cart:front_hitch())
-    -- RodConstraintInstance.Attachment1 = Instance.new("Attachment", parent:rear_hitch())
-    -- RodConstraintInstance.Length = 5
-    -- RodConstraintInstance.Enabled = true
-    -- RodConstraintInstance.LimitsEnabled = true
-    -- RodConstraintInstance.Visible = true
-    -- RodConstraintInstance.Parent = game.Workspace
+
+    -- Just for looks, I may be able to add parts and such to this
+    local RodConstraintInstance = Instance.new("RodConstraint")
+    RodConstraintInstance.Attachment0 = Instance.new("Attachment", cart:front_hitch())
+    RodConstraintInstance.Attachment1 = Instance.new("Attachment", parent:rear_hitch())
+    RodConstraintInstance.Length = 5
+    RodConstraintInstance.Enabled = true
+    RodConstraintInstance.LimitsEnabled = true
+    RodConstraintInstance.Visible = true
+    RodConstraintInstance.Parent = game.Workspace
 
     wait(.8)
 
@@ -88,6 +90,5 @@ end
 
 ]]
 
-wait(5)
 
-spawn_train(36)
+spawn_train(12)
