@@ -14,7 +14,7 @@ function make_positions()
   local positions = {}
   local radius = 600
   local offset = 200
-  local num_nodes = 152
+  local num_nodes = 300
   local step = 360 / num_nodes
 
   for angle = 0, 360, step do

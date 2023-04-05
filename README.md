@@ -32,7 +32,7 @@ Key:
 🟩 = Completed
 
 ## Robbery mechanics
-- **[**🟨**]** Bank Roberry
+- **[**🟨**]** Bank Roberry (CAR ROBBERY?!?!?!?)
 - **[**🟥**]** Train
 - **[**🟥**]** Plane
 - **[**🟥**]** Money Laundering
