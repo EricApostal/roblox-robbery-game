@@ -90,4 +90,4 @@ end
 
 wait(5)
 
-spawn_train(12)
+spawn_train(36)

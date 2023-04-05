@@ -1,12 +1,3 @@
---[[
-    Makes it so the player stays on top of the hitbox of the train
-
-    Found at:
-    https://devforum.roblox.com/t/how-do-i-make-a-player-move-with-a-part/2093770
-        and 
-    https://devforum.roblox.com/t/jailbreak-train-platform-system/236339/35
-]]
-
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 local RunService = game:GetService('RunService')
@@ -16,51 +7,60 @@ local LastTrainCFrame
 local Function
 local Function2
 
-local teleportThreshold = 10 -- Define the threshold distance to prevent teleporting
+local teleportThreshold = 20 -- Define the threshold distance to prevent teleporting
+local cart_switch_wait = 250
+
+local last_hit = nil
+local last_hit_time = 0
 
 Function = RunService.Heartbeat:Connect(function()
 
---------------------------------------------------------------- CHECK PLATFORM BELOW
+    --------------------------------------------------------------- CHECK PLATFORM BELOW
 
-local character = player.Character or player.CharacterAdded:wait()
+    local character = player.Character or player.CharacterAdded:wait()
+    local RootPart = character:WaitForChild("HumanoidRootPart")
+    local Ignore = character
+    local ray = Ray.new(RootPart.CFrame.p, Vector3.new(0, -50, 0))
+    local Hit, Position, Normal, Material = workspace:FindPartOnRayWithIgnoreList(ray, {Ignore}, false, true)
 
-local RootPart = character:WaitForChild("HumanoidRootPart")
+    if Hit and Hit.Name == "train_player_hitbox" then
+        local Train
 
-local Ignore = character
+        if (not ((DateTime.now().UnixTimestampMillis - last_hit_time) < cart_switch_wait)) or (not last_hit) then
+            Train = Hit
+        else
+            Train = last_hit
+        end
 
-local ray = Ray.new(RootPart.CFrame.p, Vector3.new(0, -50, 0))
+        if last_hit ~= Hit then
+            if (DateTime.now().UnixTimestampMillis - last_hit_time) >= cart_switch_wait then
+                Train = Hit
+                last_hit = Hit
+                last_hit_time = DateTime.now().UnixTimestampMillis
+            else
+                Train = last_hit
+            end
+        end
 
-local Hit, Position, Normal, Material = workspace:FindPartOnRayWithIgnoreList(ray, {Ignore}, false, true)
+        if LastTrainCFrame == nil then
+            LastTrainCFrame = Train.CFrame
+        end
 
-if Hit and Hit.Name == "train_player_hitbox" then -- Change "train_head" and "train_cart" to the moving parts' names
+        local TrainCF = Train.CFrame
+        local Rel = TrainCF * LastTrainCFrame:inverse()
+        LastTrainCFrame = Train.CFrame
+        local newCFrame = Rel * RootPart.CFrame
 
---------------------------------------------------------------- MOVE PLAYER TO NEW POSITON FROM OLD POSITION
+        if (newCFrame.p - RootPart.CFrame.p).Magnitude < teleportThreshold then
+            RootPart.CFrame = newCFrame
+        end
 
-local Train = Hit
-if LastTrainCFrame == nil then -- If no LastTrainCFrame exists, make one!
-    LastTrainCFrame = Train.CFrame -- This is updated later.
-end
-local TrainCF = Train.CFrame 
+    else
+        LastTrainCFrame = nil
+    end
 
-local Rel = TrainCF * LastTrainCFrame:inverse()
-
-LastTrainCFrame = Train.CFrame -- Updated here.
-
-local newCFrame = Rel * RootPart.CFrame -- Calculate the new player's CFrame
-
-if (newCFrame.p - RootPart.CFrame.p).Magnitude < teleportThreshold then -- Check if the new position is within the threshold
-    RootPart.CFrame = newCFrame -- Set the player's CFrame if it is within the threshold
-    --print("set")
-end
-
-else
-LastTrainCFrame = nil -- Clear the value when the player gets off.
-
-end
-
-Function2 = character:WaitForChild("Humanoid").Died:Connect(function()
-    Function:Disconnect() -- Stop memory leaks
-    Function2:Disconnect() -- Stop memory leaks
-end)
-
+    Function2 = character:WaitForChild("Humanoid").Died:Connect(function()
+        Function:Disconnect()
+        Function2:Disconnect()
+    end)
 end)
