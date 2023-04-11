@@ -11,22 +11,27 @@ local Value, Observer, Computed, ForKeys, ForValues, ForPairs, new, Children, On
 
 -- Inventory Hotbar
 local  Main_Inv = new "Frame" {
-    Position = UDim2.fromScale(.5, .8),
+    Position = UDim2.fromScale(.5, .9),
     AnchorPoint = Vector2.new(.5, .5),
-    Size = UDim2.fromOffset(300, 70),
-    Transparency = 1    ,
+    Size = UDim2.fromOffset(400, 70),
+    Transparency = .6,
     BackgroundColor3 = Color3.new(1.000000, 1.000000, 1.000000),
 
     [Children] = {
         new "UICorner" {
-            CornerRadius = UDim.new(0, 3),
+            CornerRadius = UDim.new(0, 8),
         },
-        components.inventory_slot(UDim2.fromScale(.1, .6)),
-        components.inventory_slot(UDim2.fromScale(.3, .6)),
-        components.inventory_slot(UDim2.fromScale(.5, .6)),
-        components.inventory_slot(UDim2.fromScale(.7, .6)),
-        components.inventory_slot(UDim2.fromScale(.9, .6)),
-        components.inventory_selection_text(UDim2.fromScale(.5, .01))
+        components.inventory_slot(UDim2.fromScale(.1, .5)),
+        components.inventory_slot(UDim2.fromScale(.3, .5)),
+        components.inventory_slot(UDim2.fromScale(.5, .5)),
+        components.inventory_slot(UDim2.fromScale(.7, .5)),
+        components.inventory_slot(UDim2.fromScale(.9, .5)),
+
+        --[[
+          Check components.lua
+          ~ Resp
+        ]]
+        -- components.inventory_selection_text(UDim2.fromScale(.5, .01))
     }
 }
 

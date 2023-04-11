@@ -38,55 +38,73 @@ function comps.close_button(parent_ui)
     }
 end
 
-function comps.main_button(button_text, button_position, button_size, parent_ui)
-    return new "TextButton" {
-        Position =  button_position,--UDim2.fromScale(0.5, 0.5),
-        AnchorPoint = Vector2.new(.5, .5),
-        Size = button_size,--UDim2.fromOffset(170, 50),
-        BackgroundColor3 = Color3.new(0.890196, 0.270588, 0.270588),
-        Text = button_text,
-        TextColor = BrickColor.White(),
-        TextSize = 24,
+-- function comps.main_button(button_text, button_position, button_size, parent_ui)
+--     return new "TextButton" {
+--         Position =  button_position,--UDim2.fromScale(0.5, 0.5),
+--         AnchorPoint = Vector2.new(.5, .5),
+--         Size = button_size,--UDim2.fromOffset(170, 50),
+--         BackgroundColor3 = Color3.new(0.890196, 0.270588, 0.270588),
+--         Text = button_text,
+--         TextColor = BrickColor.White(),
+--         TextSize = 24,
 
-        [OnEvent "Activated"] = function()
-            print("Player accepted EULA!")
+--         [OnEvent "Activated"] = function()
+--             print("Player accepted EULA!")
             
 
-            Fusion.Animate(parent_ui, TweenInfo.new(1), {
-                Position = UDim2.fromScale(0.25, -0.25),
-                BackgroundTransparency = 1,
-                Visible = false
-            })
+--             Fusion.Animate(parent_ui, TweenInfo.new(1), {
+--                 Position = UDim2.fromScale(0.25, -0.25),
+--                 BackgroundTransparency = 1,
+--                 Visible = false
+--             })
         
-        end   
-    }
-end
+--         end   
+--     }
+-- end
 -- Inventory Components
 -- ARRH I JUST WANNA SLEEP
 -- Im not very productive right now
 
 function comps.inventory_slot( button_position)
-    return new "ImageLabel" {
+    return new "Frame" {
         Position =  button_position,--UDim2.fromScale(0.5, 0.5),
         AnchorPoint = Vector2.new(.5, .5),
-        Size = UDim2.fromOffset(50, 50),
-        Image = "rbxassetid://11176073563"
-         
+        Size = UDim2.fromOffset(60, 60),
+        BackgroundColor3 = Color3.new(0.850980, 0.874510, 0.890196),
+
+        [Children] = {
+            new "ImageLabel" {
+                Size = UDim2.fromScale(.85, .85),
+                Image = "rbxassetid://11176073563",
+                AnchorPoint = Vector2.new(.5,.5),
+                Position = UDim2.fromScale(.5, .5),
+                [Children] = {
+                    new "UICorner" {
+                        CornerRadius = UDim.new(0, 8)
+                    }
+                }
+            },
+            new "UICorner" {
+                CornerRadius = UDim.new(0, 8),
+            }
+        }
     }
 end
 
-
 function comps.inventory_selection_text( button_position)
+    --[[
+        I actually quite like this idea
+        Just fit it with the theme
+    ]]
+
     return new "TextLabel" {
         Position =  button_position,--UDim2.fromScale(0.5, 0.5),
         AnchorPoint = Vector2.new(.5, .5),
         Size = UDim2.fromOffset(0, 0),
         BackgroundColor3 = Color3.new(0.890196, 0.270588, 0.270588),
-        Text = "Item: bOBUX",
+        Text = "Item: bobux",
         TextColor = BrickColor.Blue(),
         TextSize = 36,
-
-
     }
 end
 
