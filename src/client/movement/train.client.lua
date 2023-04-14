@@ -7,7 +7,7 @@ local LastTrainCFrame
 local Function
 local Function2
 
-local teleportThreshold = 5 -- Define the threshold distance to prevent teleporting
+local teleportThreshold = 10 -- Define the threshold distance to prevent teleporting
 local cart_switch_wait = 150
 
 local last_hit = nil

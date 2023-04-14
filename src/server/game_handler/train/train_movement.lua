@@ -6,7 +6,7 @@ local train_model = game.Workspace:WaitForChild("train").train
     Movement
 ]]
 
-local speed = 60
+local speed = 80
 local cart_dist = 48
 
 local train = {}
@@ -60,9 +60,18 @@ function train:move_to_position(pos, parent_cart)
         
         -- Set the sensitivity of the tanh function using a scaling factor (adjust this value as needed)
         local scaling_factor = 0.1
+        local modifier = 1
+        
         -- Set an offset to control the minimum value of the modifier (adjust this value as needed)
         local offset = 0.1
-        local modifier = 1 + smoother(scaling_factor * dist_error) * offset
+        -- print("error = " .. dist_error)
+
+        if (math.abs(dist_error) > 2) and not self.distance_calibrated then
+            modifier = 1 + smoother(scaling_factor * dist_error) * offset
+        -- else
+            -- print("error is fine, calibration stopped")
+            -- self.distance_calibrated = true
+        end
 
         wait_duration = (parent_cart.child_speed) * modifier
 
@@ -97,6 +106,7 @@ function train.new(cart_number)
     local new_train = setmetatable({cart_number = cart_number, 
     cart_object = train_model:Clone(), 
     child_speed = 0,
+    distance_calibrated = false -- is the distance between self and the parent cart calibrated?
     }, train)
 
     new_train.cart_object.Parent = game.Workspace -- Set the parent of the cloned train model to the workspace

@@ -14,7 +14,7 @@ function make_positions()
   local positions = {}
   local radius = 600
   local offset = 200
-  local num_nodes = 300
+  local num_nodes = 1800
   local step = 360 / num_nodes
 
   for angle = 0, 360, step do
@@ -29,6 +29,8 @@ function make_positions()
     part.Parent = nodes
     part.Anchored = true
     part.Transparency = 0
+    part.CanCollide = false
+    part.Size = Vector3.new(1,1,1)
   end
 end
 
@@ -74,7 +76,7 @@ function spawn_train(length)
     RodConstraintInstance.Visible = true
     RodConstraintInstance.Parent = game.Workspace
 
-    wait(.8)
+    wait(1)
 
     do_node_thing(cart, carts[i-1])
     carts[#carts + 1] = cart

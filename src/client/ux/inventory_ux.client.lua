@@ -35,4 +35,23 @@ local  Main_Inv = new "Frame" {
     }
 }
 
+-- Side buttons
+local side_frame = new "Frame" {
+    Position = UDim2.new(UDim.new(0, 5), UDim.new(0.5, 0)),
+    AnchorPoint = Vector2.new(0, .5),
+    Size = UDim2.fromOffset(70, 200),
+    Transparency = .6,
+    BackgroundColor3 = Color3.new(1.000000, 1.000000, 1.000000),
+
+    [Children] = {
+        new "UICorner" {
+            CornerRadius = UDim.new(0, 8),
+        },
+        new "UIListLayout" {
+            
+        }
+    }
+}
+
 Main_Inv.Parent = ScreenGui
+side_frame.Parent = ScreenGui
