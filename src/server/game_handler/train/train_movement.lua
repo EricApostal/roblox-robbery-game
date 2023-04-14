@@ -66,7 +66,7 @@ function train:move_to_position(pos, parent_cart)
         local offset = 0.1
         -- print("error = " .. dist_error)
 
-        if (math.abs(dist_error) > 2) and not self.distance_calibrated then
+        if (math.abs(dist_error) > 1) and not self.distance_calibrated then
             modifier = 1 + smoother(scaling_factor * dist_error) * offset
         -- else
             -- print("error is fine, calibration stopped")
