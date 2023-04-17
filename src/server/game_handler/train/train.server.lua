@@ -20,7 +20,7 @@ function make_positions()
   for angle = 0, 360, step do
     local x = radius * math.cos(angle * math.pi / 180) + offset
     local z = radius * math.sin(angle * math.pi / 180) + offset
-    table.insert(positions, Vector3.new(x, 0, z))
+    table.insert(positions, Vector3.new(x, 7.6, z))
   end
 
   for index, position in ipairs(positions) do
@@ -28,9 +28,10 @@ function make_positions()
     part.Position = position
     part.Parent = nodes
     part.Anchored = true
-    part.Transparency = 0
+    part.Transparency = 1
     part.CanCollide = false
     part.Size = Vector3.new(1,1,1)
+    
   end
 end
 
