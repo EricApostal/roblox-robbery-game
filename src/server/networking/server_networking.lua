@@ -1,3 +1,5 @@
+--!strict
+
 local RS = game:GetService("ReplicatedStorage")
 local SS = game:GetService("ServerScriptService"):WaitForChild("Server")
 

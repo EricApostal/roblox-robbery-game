@@ -1,3 +1,5 @@
+--!strict
+
 --[[
     Handles database stuff between play sessions
 ]]
@@ -13,7 +15,7 @@ local databases = {}
 ]]
 databases['players'] = 'players_testdb_7'
 
-function cold_data:save_data(raw_database, key, data)
+function cold_data:save_data(raw_database: string, key: string, data: unknown)
     local database = DataStoreService:GetDataStore(databases[raw_database])
     -- I would use strict type checking for no nulls here... this could cause problems
 
@@ -23,11 +25,11 @@ function cold_data:save_data(raw_database, key, data)
     end)
     
     if not success then
-        warn("THERE WAS AN ERROR UPDATING THE DATABASE! : \n" + errorMessage)
+        warn("THERE WAS AN ERROR UPDATING THE DATABASE! : \n" .. errorMessage)
     end
 end
 
-function cold_data:get_data(raw_database, key)
+function cold_data:get_data(raw_database: string, key: string)
     -- Gets data from DB
     local database = DataStoreService:GetDataStore(databases[raw_database])
 

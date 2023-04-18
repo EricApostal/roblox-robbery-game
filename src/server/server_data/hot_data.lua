@@ -1,3 +1,5 @@
+--!strict
+
 --[[
 Controls all active session data
 ]]

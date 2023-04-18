@@ -1,3 +1,5 @@
+--!strict
+
 --[[
     Cool script for robbery
 ]]
