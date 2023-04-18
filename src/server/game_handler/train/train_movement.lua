@@ -1,3 +1,5 @@
+--!strict
+
 local TweenService = game:GetService("TweenService")
 -- local part = game.Workspace:WaitForChild("train").train.PrimaryPart
 local train_model = game.Workspace:WaitForChild("train").train
@@ -6,8 +8,8 @@ local train_model = game.Workspace:WaitForChild("train").train
     Movement
 ]]
 
-local speed = 80
-local cart_dist = 48
+local speed: number = 80
+local cart_dist: number = 48
 
 local train = {}
 train.__index = train
@@ -36,12 +38,13 @@ function smoother(x)
     return math.tanh(x)
 end
 
-function train:move_to_position(pos, parent_cart)
+--@param self: train
+function train.move_to_position(self: train, pos: Vector3, parent_cart: any )
+
     --[[
         Moves cart to a given Vector3
         Parent cart is for any cart that has children
     ]]
-    
     local goal = {}
     local _cf = CFrame.new(self.cart_object.PrimaryPart.Position, pos)
     local rads = Vector3.new(_cf:ToEulerAnglesXYZ())
@@ -59,11 +62,11 @@ function train:move_to_position(pos, parent_cart)
         local dist_error = cart_dist - magnitude
         
         -- Set the sensitivity of the tanh function using a scaling factor (adjust this value as needed)
-        local scaling_factor = 0.1
-        local modifier = 1
+        local scaling_factor: number = 0.1
+        local modifier: number = 1
         
         -- Set an offset to control the minimum value of the modifier (adjust this value as needed)
-        local offset = 0.1
+        local offset: number = 0.1
         -- print("error = " .. dist_error)
 
         if (math.abs(dist_error) > 1) and not self.distance_calibrated then
@@ -109,8 +112,13 @@ function train.new(cart_number)
     distance_calibrated = false -- is the distance between self and the parent cart calibrated?
     }, train)
 
-    new_train.cart_object.Parent = game.Workspace -- Set the parent of the cloned train model to the workspace
+    if (cart_number ~= -1) then
+        new_train.cart_object.Parent = game.Workspace -- Set the parent of the cloned train model to the workspace
+    end
     return new_train
 end
+
+-- mock train for type checking
+type train = typeof(train.new(-1))
 
 return train

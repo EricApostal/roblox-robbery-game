@@ -1,3 +1,5 @@
+--!strict
+
 --[[
     File for controlling train movements
 ]]
@@ -42,29 +44,32 @@ for k,v in nodes:GetChildren() do
 	table.insert(nodelist, v)
 end
 
-function do_node_thing(cart, parent)
-  coroutine.wrap(function()
-    if not parent then
-      while true do
-        cart:move_to_nodes(nodelist)
+function do_node_thing(cart, parent: any)
+  -- coroutine.wrap(function()
+
+  -- end)()
+    spawn(function()
+      if not parent then
+        while true do
+          cart:move_to_nodes(nodelist, nil)
+        end
+      else 
+        while true do
+          cart:move_to_nodes(nodelist, parent)
+        end
       end
-    else 
-      while true do
-        cart:move_to_nodes(nodelist, parent)
-      end
-    end
-  end)()
+    end)
 end
 
 function spawn_train(length)
-  local head = train.new()
+  local head = train.new(nil)
   local carts = {}
 
   table.insert(carts, head)
-  do_node_thing(head)
+  do_node_thing(head, nil)
 
   for i = 2, length do
-    local cart = train.new()
+    local cart = train.new(nil)
     local parent = carts[i-1]
 
     -- Just for looks, I may be able to add parts and such to this
