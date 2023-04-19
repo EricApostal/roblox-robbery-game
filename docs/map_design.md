@@ -1,5 +1,4 @@
 # Map Design
-How the map should be designed
 <img src="https://cdn.discordapp.com/attachments/734952768187400292/1098203534421397635/Untitled2.png"
      alt="map"
      style="float: left; margin-right: 10px;"
