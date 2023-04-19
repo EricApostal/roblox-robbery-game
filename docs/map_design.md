@@ -3,7 +3,7 @@
      alt="map"
      style="float: left; margin-right: 10px;"
      width="500" height="500"
-      />
+/>
 
 
 # Overall
