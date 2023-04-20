@@ -47,7 +47,7 @@ Key:
 - **[**🟨**]** Train (actual movement mechanics)
 - **[**🟥**]** Weapon System
 ## Map
-- **[**🟥**]** Basic Map Overview
+- **[**🟨**]** Basic Map Overview
 - **[**🟥**]** Basic Bank Robbery
 - **[**🟥**]** Complete Road Network
 - **[**🟥**]** Complete Train Track
